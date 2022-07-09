@@ -77,7 +77,7 @@ module.exports = {
 
         console.log(isValidPassword);
 
-        if (!isValidPassword) {
+        if (body.password !== findUser.dataValues.password) {
             res.status(403).send({
                 msg: "Sign is error",
                 status: 403,
