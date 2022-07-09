@@ -19,7 +19,7 @@ module.exports = {
                     throw error.message;
                 })
                 .on("data", (row) => {
-                    console.log(row.password);
+
                     let newData = {
                         ...row,
                         id: uuid(),
