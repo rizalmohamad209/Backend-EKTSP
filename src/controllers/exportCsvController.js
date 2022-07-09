@@ -22,8 +22,7 @@ module.exports = {
                 .on("data", (row) => {
 
                     let newData = {
-                        ...row,
-                        id: id++,
+                        ...row
 
                     }
                     kepsekCsv.push(newData);
