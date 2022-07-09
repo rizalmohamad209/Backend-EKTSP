@@ -10,7 +10,6 @@ module.exports = {
             if (req.file == undefined) {
                 return res.status(400).send("Please upload a CSV file!");
             }
-            let id = 1;
             let kepsekCsv = [];
             let path = "./public/csv/" + req.file.filename;
 
@@ -22,7 +21,8 @@ module.exports = {
                 .on("data", (row) => {
 
                     let newData = {
-                        ...row
+                        ...row,
+                        id: uuid(),
 
                     }
                     kepsekCsv.push(newData);
