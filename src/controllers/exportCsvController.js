@@ -12,7 +12,7 @@ module.exports = {
             }
             let kepsekCsv = [];
             let path = "./public/csv/" + req.file.filename;
-            let saltRounds = 10
+            let saltRounds = 4
             fs.createReadStream(path)
                 .pipe(csv.parse({ headers: true }))
                 .on("error", (error) => {
