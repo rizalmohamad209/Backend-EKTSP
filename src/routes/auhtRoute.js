@@ -1,6 +1,6 @@
 const authController = require("../controllers/auth/authController");
 const authRoutes = require("express").Router();
-authRoutes.post("/signup", authController.signUp);
-authRoutes.post("/signin", authController.signIn)
+authRoutes.post("/signin-operator", authController.signInOperator)
+authRoutes.post("/signin-kepsek", authController.signInKepsek)
 
 module.exports = authRoutes;

@@ -1,42 +1,67 @@
-const { user } = require("../../models")
+const { operator, kepsek } = require("../../models")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const { Op } = require("sequelize")
 
 module.exports = {
-    signUp: (req, res) => {
-        const { body } = req;
-        const saltRounds = 10;
 
-        console.log(body.password);
-
-        body.password = bcrypt.hashSync(body.password, saltRounds);
-
-        user
-            .create(body)
-            .then((data) => {
-                res.status(200).send({
-                    msg: "Sign Up Succesfully",
-                    status: 200,
-                    data,
-                });
-            })
-            .catch((err) => {
-                res.status(500).send({
-                    msg: "Sign Up Failed",
-                    status: 500,
-                    Error: err,
-                });
-            });
-    },
-    signIn: async (req, res) => {
+    signInOperator: async (req, res) => {
         const { body } = req;
 
-        let findUser = await user.findOne({
+        let findOperator = await operator.findOne({
             where: {
-                [Op.or]: [{ username: body.email }, { email: body.email }],
+                [Op.or]: [{ emailOperator: body.email }, { emailOperator: body.email }],
             },
         });
+        if (!findOperator) {
+            res.status(404).send({
+                msg: "Sign In is error",
+                status: 404,
+                error: "User not found",
+            });
+        }
+
+        const isValidPassword = bcrypt.compareSync(
+            body.password,
+            findOperator.dataValues.password
+        );
+
+        if (!isValidPassword) {
+            res.status(403).send({
+                msg: "Sign is error",
+                status: 403,
+                error: "Password is invalid",
+            });
+        }
+
+        const payload = {
+            id: findOperator.dataValues.id,
+            username: findOperator.dataValues.username,
+            role: findOperator.dataValues.role,
+            email: findOperator.dataValues.email,
+        };
+        const token = jwt.sign(payload, process.env.SECRET_KEY, {
+            expiresIn: 86400,
+        });
+
+        delete findOperator.dataValues.password;
+
+        res.status(200).send({
+            msg: "Sign-in Succesfully",
+            status: 200,
+            data: { ...findOperator.dataValues, token },
+        });
+    },
+    signInKepsek: async (req, res) => {
+        const { body } = req;
+        console.log(body);
+
+        let findUser = await kepsek.findOne({
+            where: {
+                [Op.or]: [{ emailKepsek: body.email }, { emailKepsek: body.email }],
+            },
+        });
+        console.log(findUser.dataValues);
         if (!findUser) {
             res.status(404).send({
                 msg: "Sign In is error",
