@@ -71,7 +71,7 @@ module.exports = {
         }
 
         const isValidPassword = () => {
-            body.password === findUser.dataValues.password
+            return body.password === findUser.dataValues.password
 
         }
 
