@@ -2,7 +2,7 @@ const { kepsek, operator, komite, sekolah } = require("../models")
 const fs = require("fs");
 const csv = require("fast-csv");
 const bcrypt = require("bcrypt")
-const { uuid } = require('uuidv4');
+
 module.exports = {
     importKepsekCsv: (req, res) => {
 
@@ -12,6 +12,7 @@ module.exports = {
             }
             let kepsekCsv = [];
             let path = "./public/csv/" + req.file.filename;
+            let saltRounds = 4
 
             fs.createReadStream(path)
                 .pipe(csv.parse({ headers: true }))
@@ -22,6 +23,7 @@ module.exports = {
 
                     let newData = {
                         ...row,
+                        password: bcrypt.hashSync(row.password, saltRounds)
 
 
                     }
@@ -60,7 +62,7 @@ module.exports = {
             }
             let operatorCsv = [];
             let path = "./public/csv/" + req.file.filename;
-            let saltRounds = 10
+            let saltRounds = 4
             fs.createReadStream(path)
                 .pipe(csv.parse({ headers: true }))
                 .on("error", (error) => {
@@ -70,7 +72,6 @@ module.exports = {
                     console.log(row.password);
                     let newData = {
                         ...row,
-                        id: uuid(),
                         password: bcrypt.hashSync(row.password, saltRounds)
                     }
                     operatorCsv.push(newData);
@@ -107,7 +108,7 @@ module.exports = {
             }
             let komiteCsv = [];
             let path = "./public/csv/" + req.file.filename;
-            let saltRounds = 10
+            let saltRounds = 4
             fs.createReadStream(path)
                 .pipe(csv.parse({ headers: true }))
                 .on("error", (error) => {
@@ -117,7 +118,7 @@ module.exports = {
                     console.log(row.password);
                     let newData = {
                         ...row,
-                        id: uuid(),
+
                         password: bcrypt.hashSync(row.password, saltRounds)
                     }
                     komiteCsv.push(newData);
@@ -162,7 +163,7 @@ module.exports = {
                     console.log(row.password);
                     let newData = {
                         ...row,
-                        id: uuid(),
+
 
                     }
                     sekolahCsv.push(newData);
