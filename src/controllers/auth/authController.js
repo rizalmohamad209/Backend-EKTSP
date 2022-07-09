@@ -75,6 +75,8 @@ module.exports = {
 
         }
 
+        console.log(isValidPassword);
+
         if (!isValidPassword) {
             res.status(403).send({
                 msg: "Sign is error",
