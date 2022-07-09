@@ -18,7 +18,6 @@ module.exports = {
     use_env_variable: "DATABASE_URL",
     dialect: "postgress",
     protocol: "postgress",
-    logging: false,
     dialectOptions: {
       ssl: {
         require: true,
