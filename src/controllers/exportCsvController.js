@@ -12,7 +12,7 @@ module.exports = {
             }
             let kepsekCsv = [];
             let path = "./public/csv/" + req.file.filename;
-            let saltRounds = 4
+
             fs.createReadStream(path)
                 .pipe(csv.parse({ headers: true }))
                 .on("error", (error) => {
@@ -23,7 +23,7 @@ module.exports = {
                     let newData = {
                         ...row,
                         id: uuid(),
-                        password: bcrypt.hashSync(row.password, saltRounds)
+
                     }
                     kepsekCsv.push(newData);
 
@@ -39,7 +39,7 @@ module.exports = {
                         .catch((error) => {
                             res.status(500).send({
                                 message: "Fail to import data into database!",
-                                error: error,
+                                error: error.message,
                             });
                         });
                 });
