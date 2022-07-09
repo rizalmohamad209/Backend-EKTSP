@@ -88,7 +88,7 @@ module.exports = {
                         .catch((error) => {
                             res.status(500).send({
                                 message: "Fail to import data into database!",
-                                error: error,
+                                error: error.message,
                             });
                         });
                 });
@@ -135,7 +135,7 @@ module.exports = {
                         .catch((error) => {
                             res.status(500).send({
                                 message: "Fail to import data into database!",
-                                error: error,
+                                error: error.message,
                             });
                         });
                 });
@@ -160,11 +160,9 @@ module.exports = {
                     throw error.message;
                 })
                 .on("data", (row) => {
-                    console.log(row.password);
+
                     let newData = {
                         ...row,
-
-
                     }
                     sekolahCsv.push(newData);
 
@@ -180,7 +178,7 @@ module.exports = {
                         .catch((error) => {
                             res.status(500).send({
                                 message: "Fail to import data into database!",
-                                error: error,
+                                error: error.message,
                             });
                         });
                 });
