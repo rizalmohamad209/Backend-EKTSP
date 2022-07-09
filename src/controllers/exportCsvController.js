@@ -160,7 +160,6 @@ module.exports = {
                     throw error.message;
                 })
                 .on("data", (row) => {
-
                     let newData = {
                         ...row,
                     }
