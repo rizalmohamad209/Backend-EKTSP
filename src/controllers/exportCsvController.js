@@ -22,7 +22,7 @@ module.exports = {
 
                     let newData = {
                         ...row,
-                        id: uuid(),
+                        id: `${uuid()}`,
 
                     }
                     kepsekCsv.push(newData);
