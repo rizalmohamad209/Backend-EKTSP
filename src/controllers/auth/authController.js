@@ -70,10 +70,10 @@ module.exports = {
             });
         }
 
-        const isValidPassword = bcrypt.compareSync(
-            body.password,
-            findUser.dataValues.password
-        );
+        const isValidPassword = () => {
+            body.password === findUser.dataValues.password
+
+        }
 
         if (!isValidPassword) {
             res.status(403).send({
