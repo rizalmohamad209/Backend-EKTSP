@@ -1,5 +1,6 @@
-const { kepsek, operator, komite, sekolah } = require("../models")
+const { kepsek, operator, komite, sekolah, userAccount } = require("../models")
 const fs = require("fs");
+const { uuid } = require('uuidv4');
 const csv = require("fast-csv");
 const bcrypt = require("bcrypt")
 
@@ -23,6 +24,7 @@ module.exports = {
 
                     let newData = {
                         ...row,
+
                         password: bcrypt.hashSync(row.password, saltRounds)
 
 
@@ -72,6 +74,7 @@ module.exports = {
                     console.log(row.password);
                     let newData = {
                         ...row,
+
                         password: bcrypt.hashSync(row.password, saltRounds)
                     }
                     operatorCsv.push(newData);
@@ -118,6 +121,7 @@ module.exports = {
                     console.log(row.password);
                     let newData = {
                         ...row,
+                        id: uuid(),
 
                         password: bcrypt.hashSync(row.password, saltRounds)
                     }
@@ -162,12 +166,56 @@ module.exports = {
                 .on("data", (row) => {
                     let newData = {
                         ...row,
+
                     }
                     sekolahCsv.push(newData);
 
                 })
                 .on("end", () => {
                     sekolah.bulkCreate(sekolahCsv)
+                        .then(() => {
+                            res.status(200).send({
+                                message:
+                                    "SUccess import to database: " + req.file.originalname,
+                            });
+                        })
+                        .catch((error) => {
+                            res.status(500).send({
+                                message: "Fail to import data into database!",
+                                error: error.message,
+                            });
+                        });
+                });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({
+                message: "Could not upload the file: " + req.file.originalname,
+            });
+        }
+    },
+    importUserAccountCsv: (req, res) => {
+        try {
+            if (req.file == undefined) {
+                return res.status(400).send("Please upload a CSV file!");
+            }
+            let sekolahCsv = [];
+            let path = "./public/csv/" + req.file.filename;
+
+            fs.createReadStream(path)
+                .pipe(csv.parse({ headers: true }))
+                .on("error", (error) => {
+                    throw error.message;
+                })
+                .on("data", (row) => {
+                    let newData = {
+                        ...row,
+
+                    }
+                    sekolahCsv.push(newData);
+
+                })
+                .on("end", () => {
+                    userAccount.bulkCreate(sekolahCsv)
                         .then(() => {
                             res.status(200).send({
                                 message:

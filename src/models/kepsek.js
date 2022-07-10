@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasOne(models.userAccount, {
+        as: "useraccounts",
+        foreignKey: "id"
+      })
     }
   }
   kepsek.init({
@@ -23,7 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     nikKepsek: DataTypes.BIGINT,
     npwpKepsek: DataTypes.STRING,
     noHpKepsek: DataTypes.BIGINT,
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    role: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'kepsek',
