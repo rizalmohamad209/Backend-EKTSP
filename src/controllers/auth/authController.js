@@ -51,6 +51,8 @@ module.exports = {
 
             } else if (findUserKepsek) {
                 user = findUserKepsek.dataValues.usersKepsek
+                delete user.dataValues.nikKepsek
+                delete user.dataValues.nipKepsek
 
             }
 
@@ -80,23 +82,18 @@ module.exports = {
                 expiresIn: 86400,
             });
 
-            let data = {
-                id: user.dataValues.id,
-                email: user.dataValues.email,
-                nama: user.dataValues.namaKepsek,
-                role: user.dataValues.role
-            }
+
 
             res.status(200).send({
                 msg: "Sign-in Succesfully",
                 status: 200,
-                data: { ...data, token },
+                data: { ...user.dataValues, token },
             });
 
         } catch (error) {
             console.log(error);
             res.status(500).send({
-                message: "Could not upload the file: " + req.file.originalname,
+                message: "Signin Failed",
             });
         }
     },
