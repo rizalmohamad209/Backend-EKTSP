@@ -121,7 +121,7 @@ module.exports = {
                     console.log(row.password);
                     let newData = {
                         ...row,
-                        id: uuid(),
+
 
                         password: bcrypt.hashSync(row.password, saltRounds)
                     }
