@@ -44,7 +44,9 @@ module.exports = {
                 });
             }
             if (findUserOperator) {
-                user = findUserOperator.dataValues.usersOperator
+                user = findUserOperator.dataValues
+
+
 
 
             } else if (findUserKepsek) {
@@ -69,7 +71,6 @@ module.exports = {
 
             const payload = {
                 id: user.dataValues.id,
-                username: user.dataValues.username,
                 role: user.dataValues.role,
                 email: user.dataValues.email,
             };
@@ -79,12 +80,17 @@ module.exports = {
                 expiresIn: 86400,
             });
 
-            delete user.dataValues.password;
+            let data = {
+                id: user.dataValues.id,
+                email: user.dataValues.email,
+                nama: user.dataValues.namaKepsek,
+                role: user.dataValues.role
+            }
 
             res.status(200).send({
                 msg: "Sign-in Succesfully",
                 status: 200,
-                data: { ...user.dataValues, token },
+                data: { ...data, token },
             });
 
         } catch (error) {
