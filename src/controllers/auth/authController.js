@@ -44,7 +44,7 @@ module.exports = {
                 });
             }
             if (findUserOperator) {
-                user = findUserOperator.dataValues
+                user = findUserOperator.dataValues.usersOperator
 
 
 
@@ -53,9 +53,15 @@ module.exports = {
                 user = findUserKepsek.dataValues.usersKepsek
                 delete user.dataValues.nikKepsek
                 delete user.dataValues.nipKepsek
+                delete user.dataValues.npwpKepsek
+                delete user.dataValues.golKepsek
+                delete user.dataValues.noHpKepsek
+                delete user.dataValues.alamatKepsek
 
             }
-
+            console.log('====================================');
+            console.log(user);
+            console.log('====================================');
 
             const isValidPassword = bcrypt.compareSync(
                 body.password,
