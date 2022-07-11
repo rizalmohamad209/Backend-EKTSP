@@ -1,5 +1,5 @@
-const { ktsp } = require("../models")
-const { uuid } = require("uuidv4")
+const { ktsp, sekolah } = require("../models")
+
 module.exports = {
     createEKtsp: (req, res) => {
         let { body } = req;
@@ -24,6 +24,15 @@ module.exports = {
     },
     getKtspByUser: (req, res) => {
         ktsp.findAll({
+            include: [
+                {
+                    model: sekolah,
+                    as: "sekolahs",
+                    attributes: ['namaSekolah']
+
+
+                },
+            ],
             where: {
                 operatorId: req.deCodeToken.id
             }
@@ -40,5 +49,49 @@ module.exports = {
                 error: err.message
             })
         })
+    },
+    updateKtspByUser: async (req, res) => {
+
+        const { id } = req.params;
+        let { body } = req;
+
+        try {
+
+
+
+            let findKtsp = await ktsp.findOne({
+                where: { id }
+            })
+
+            if (findKtsp === null) {
+                res.status(404).send({
+                    msg: "Update ktsp failed",
+                    status: 404,
+                    error: "Data not found",
+                });
+            }
+
+            ktsp.update(body, { where: { id } }).then((data) => {
+                const resObject = { ...findKtsp.dataValues, ...body };
+                res.status(200).send({
+                    msg: "Succes update ktsp",
+                    status: 200,
+                    data: resObject,
+                });
+            }).catch((err) => {
+                res.status(500).send({
+                    msg: "Failed while update ktsp",
+                    status: 500,
+                    error: err,
+                });
+
+            })
+
+        } catch (err) {
+            res.status(500).send({
+                message: "Update ktsp failed",
+            });
+        }
+
     }
 }

@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.sekolah, {
+        as: "sekolahs",
+        foreignKey: "sekolahId"
+      })
     }
   }
   ktsp.init({

@@ -4,6 +4,7 @@ const authMiddleware = require("../helpers/authMiddleware")
 
 ektspRoute.post("/", authMiddleware.checkLogin, ektspController.createEKtsp)
 ektspRoute.get("/", authMiddleware.checkLogin, ektspController.getKtspByUser)
+ektspRoute.put("/:id", authMiddleware.checkLogin, ektspController.updateKtspByUser)
 
 
 
