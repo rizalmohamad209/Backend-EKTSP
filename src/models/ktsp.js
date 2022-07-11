@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   ktsp.init({
     operatorId: DataTypes.UUID,
     sekolahId: DataTypes.UUID,
-    ektsp: DataTypes.TEXT,
+    ektsp: DataTypes.JSONB,
     status: DataTypes.STRING
   }, {
     sequelize,

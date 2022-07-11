@@ -6,7 +6,7 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.literal('uuid_generate_v4()')
+        defaultValue: Sequelize.UUIDV4
       },
       operatorId: {
         type: Sequelize.UUID
@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.UUID
       },
       ektsp: {
-        type: Sequelize.TEXT
+        type: Sequelize.JSONB
       },
       status: {
         type: Sequelize.STRING

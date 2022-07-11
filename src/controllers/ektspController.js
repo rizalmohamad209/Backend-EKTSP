@@ -1,10 +1,13 @@
+const { UUIDV4 } = require("sequelize/types");
 const { ktsp, sekolah } = require("../models")
+const { uuid } = require(UUIDV4)
 
 module.exports = {
     createEKtsp: (req, res) => {
         let { body } = req;
         let newData = {
             ...body,
+            id: uuid(),
             operatorId: req.deCodeToken.id
         }
 
