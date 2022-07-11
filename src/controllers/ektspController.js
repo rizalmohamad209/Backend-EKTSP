@@ -1,5 +1,6 @@
 
 const { ktsp, sekolah } = require("../models")
+const { uuid } = require("uuidv4")
 
 
 module.exports = {
@@ -53,14 +54,12 @@ module.exports = {
         })
     },
     updateKtspByUser: async (req, res) => {
-
         const { id } = req.params;
         let { body } = req;
 
+
+
         try {
-
-
-
             let findKtsp = await ktsp.findOne({
                 where: { id }
             })
@@ -73,25 +72,60 @@ module.exports = {
                 });
             }
 
-            ktsp.update(body, { where: { id } }).then((data) => {
-                const resObject = { ...findKtsp.dataValues, ...body };
-                res.status(200).send({
-                    msg: "Succes update ktsp",
-                    status: 200,
-                    data: resObject,
-                });
-            }).catch((err) => {
-                res.status(500).send({
-                    msg: "Failed while update ktsp",
-                    status: 500,
-                    error: err,
-                });
+            if (req.image !== undefined) {
 
-            })
+
+                let newData = {
+                    ...body,
+                    pdfUrl: req.image.url
+                }
+
+
+                ktsp.update(newData, { where: { id } }).then((data) => {
+                    const resObject = { ...findKtsp.dataValues, ...body };
+                    res.status(200).send({
+                        msg: "Succes update ktsp",
+                        status: 200,
+                        data: resObject,
+                    });
+                }).catch((err) => {
+                    res.status(500).send({
+                        msg: "Failed while update ktsp",
+                        status: 500,
+                        error: err,
+                    });
+
+                })
+
+            } else {
+
+                let newData = {
+                    ...body,
+                }
+
+
+                ktsp.update(newData, { where: { id } }).then((data) => {
+                    const resObject = { ...findKtsp.dataValues, ...body };
+                    res.status(200).send({
+                        msg: "Succes update ktsp",
+                        status: 200,
+                        data: resObject,
+                    });
+                }).catch((err) => {
+                    res.status(500).send({
+                        msg: "Failed while update ktsp",
+                        status: 500,
+                        error: err,
+                    });
+
+                })
+            }
+
 
         } catch (err) {
             res.status(500).send({
                 message: "Update ktsp failed",
+                error: err.message
             });
         }
 

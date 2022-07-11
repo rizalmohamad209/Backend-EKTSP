@@ -2,7 +2,7 @@ const multer = require("multer");
 const path = require("path");
 
 const csvFilter = (req, file, cb) => {
-    if (file.mimetype.includes("csv")) {
+    if (file.mimetype.includes("pdf")) {
         cb(null, true);
     } else {
         cb("Please upload only csv file.", false);
