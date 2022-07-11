@@ -1,4 +1,4 @@
-const { UUIDV4 } = require("sequelize/types");
+
 const { ktsp, sekolah } = require("../models")
 
 
