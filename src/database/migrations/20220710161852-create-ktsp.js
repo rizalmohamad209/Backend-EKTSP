@@ -20,6 +20,10 @@ module.exports = {
       status: {
         type: Sequelize.STRING
       },
+      pdfUrl: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
