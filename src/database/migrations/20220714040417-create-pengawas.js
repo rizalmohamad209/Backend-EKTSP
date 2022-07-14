@@ -1,23 +1,33 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('ktsps', {
+    await queryInterface.createTable('pengawas', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal('uuid_generate_v4()')
       },
-      pengawasId: {
-        type: Sequelize.UUID
+      nip: {
+        unique: true,
+        type: Sequelize.BIGINT
       },
-      sekolahId: {
-        type: Sequelize.UUID
+      nama: {
+        type: Sequelize.STRING
       },
-      ektsp: {
-        type: Sequelize.JSONB
+      golongan: {
+        type: Sequelize.STRING
       },
-      status: {
+      jabatan: {
+        type: Sequelize.STRING
+      },
+      unitKerja: {
+        type: Sequelize.STRING
+      },
+      password: {
+        type: Sequelize.STRING
+      },
+      role: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -31,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('ktsps');
+    await queryInterface.dropTable('pengawas');
   }
 };

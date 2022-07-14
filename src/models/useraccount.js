@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId"
       })
 
+      this.belongsTo(models.pengawas, {
+        as: "usersPengawas",
+        foreignKey: "userId"
+      })
+
     }
   }
   userAccount.init({

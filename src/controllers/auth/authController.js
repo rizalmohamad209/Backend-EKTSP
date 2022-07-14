@@ -1,4 +1,4 @@
-const { operator, kepsek, userAccount } = require("../../models")
+const { operator, kepsek, userAccount, pengawas } = require("../../models")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const { Op } = require("sequelize")
@@ -22,6 +22,19 @@ module.exports = {
                 ],
             });
 
+            let findUserPengawas = await userAccount.findOne({
+                include: [
+                    {
+                        model: pengawas,
+                        as: "usersPengawas",
+                        where: {
+                            nip: body.email
+                        }
+
+                    },
+                ]
+            })
+
             let findUserKepsek = await userAccount.findOne({
                 include: [
                     {
@@ -36,7 +49,7 @@ module.exports = {
 
             let user = {}
 
-            if (!findUserOperator & !findUserKepsek) {
+            if (!findUserOperator & !findUserKepsek & !findUserPengawas) {
                 res.status(404).send({
                     msg: "Sign In is error",
                     status: 404,
@@ -58,6 +71,8 @@ module.exports = {
                 delete user.dataValues.noHpKepsek
                 delete user.dataValues.alamatKepsek
 
+            } else if (findUserPengawas) {
+                user = findUserPengawas.dataValues.usersPengawas
             }
             console.log('====================================');
             console.log(user);
@@ -80,7 +95,7 @@ module.exports = {
             const payload = {
                 id: user.dataValues.id,
                 role: user.dataValues.role,
-                email: user.dataValues.email,
+
             };
 
 

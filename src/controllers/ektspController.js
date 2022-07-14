@@ -8,7 +8,7 @@ module.exports = {
         let { body } = req;
         let newData = {
             ...body,
-            operatorId: req.deCodeToken.id
+            pengawasId: req.deCodeToken.id
         }
 
         ktsp.create(newData).then((data) => {
@@ -37,7 +37,7 @@ module.exports = {
                 },
             ],
             where: {
-                operatorId: req.deCodeToken.id
+                pengawasId: req.deCodeToken.id
             }
         }).then((data) => {
             res.status(200).send({

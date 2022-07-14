@@ -8,6 +8,7 @@ authRoutes.post("/operator", upload.single("file"), importCsvController.importOp
 authRoutes.post("/komite", upload.single("file"), importCsvController.importKomiteCsv)
 authRoutes.post("/sekolah", upload.single("file"), importCsvController.importSekolahCsv)
 authRoutes.post("/user", upload.single("file"), importCsvController.importUserAccountCsv)
+authRoutes.post("/pengawas", upload.single("file"), importCsvController.importPengawasCsv)
 
 
 module.exports = authRoutes;
