@@ -81,7 +81,7 @@ module.exports = {
                 }
 
 
-                ktsp.update(newData, { where: { id } }).then((data) => {
+                ktsp.update(newData, { where: { id }, individualHooks: true }).then((data) => {
                     const resObject = { ...findKtsp.dataValues, ...body };
                     res.status(200).send({
                         msg: "Succes update ktsp",
@@ -104,7 +104,7 @@ module.exports = {
                 }
 
 
-                ktsp.update(newData, { where: { id } }).then((data) => {
+                ktsp.update(newData, { where: { id }, individualHooks: true }).then((data) => {
                     const resObject = { ...findKtsp.dataValues, ...body };
                     res.status(200).send({
                         msg: "Succes update ktsp",

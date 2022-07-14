@@ -8,9 +8,7 @@ cloudinary.config({
 });
 
 const uploadCloudinary = (req, res, next) => {
-    console.log('====================================');
-    console.log(req.file);
-    console.log('====================================');
+
     if (req.file !== undefined) {
 
         const pathFIle = req.file.path;

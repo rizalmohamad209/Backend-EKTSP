@@ -1,4 +1,7 @@
 'use strict';
+const { Sequelize } = require("sequelize");
+
+
 const {
   Model
 } = require('sequelize');
@@ -27,5 +30,17 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'ktsp',
   });
+
+  ktsp.addHook('beforeUpdate', (instance, options) => {
+    console.log(instance._changed.has('pdfUrl'));
+    if (instance._changed.has('ektsp') && !instance._changed.has('pdfUrl')) {
+
+      instance.setDataValue("status", "Sudah Terisi")
+    } else if (instance._changed.has('ektsp') && instance._changed.has('pdfUrl')) {
+      instance.setDataValue("status", "Terverifikasi")
+    }
+
+
+  })
   return ktsp;
 };
