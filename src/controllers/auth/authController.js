@@ -22,18 +22,18 @@ module.exports = {
                 ],
             });
 
-            let findUserSekolah = await sekolah.findOne({
-                include: [
-                    {
-                        model: sekolah,
-                        as: "usersSekolah",
-                        where: {
-                            npsn: body.email
-                        }
+            // let findUserSekolah = await sekolah.findOne({
+            //     include: [
+            //         {
+            //             model: sekolah,
+            //             as: "usersSekolah",
+            //             where: {
+            //                 npsn: body.email
+            //             }
 
-                    },
-                ],
-            });
+            //         },
+            //     ],
+            // });
 
             let findUserPengawas = await userAccount.findOne({
                 include: [
@@ -62,7 +62,7 @@ module.exports = {
 
             let user = {}
 
-            if (!findUserOperator & !findUserKepsek & !findUserPengawas & !findUserSekolah) {
+            if (!findUserOperator & !findUserKepsek & !findUserPengawas) {
                 res.status(404).send({
                     msg: "Sign In is error",
                     status: 404,
@@ -86,9 +86,10 @@ module.exports = {
 
             } else if (findUserPengawas) {
                 user = findUserPengawas.dataValues.usersPengawas
-            } else if (findUserSekolah) {
-                user = findUserSekolah.dataValues.usersSekolah
             }
+            // else if (findUserSekolah) {
+            //     user = findUserSekolah.dataValues.usersSekolah
+            // }
             console.log('====================================');
             console.log(user);
             console.log('====================================');
