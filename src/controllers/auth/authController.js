@@ -62,7 +62,7 @@ module.exports = {
 
             let user = {}
 
-            if (!findUserOperator & !findUserKepsek & !findUserPengawas) {
+            if (!findUserOperator & !findUserKepsek & !findUserPengawas & !findUserSekolah) {
                 res.status(404).send({
                     msg: "Sign In is error",
                     status: 404,
