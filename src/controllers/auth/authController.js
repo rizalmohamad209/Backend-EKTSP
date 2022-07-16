@@ -22,18 +22,18 @@ module.exports = {
                 ],
             });
 
-            // let findUserSekolah = await sekolah.findOne({
-            //     include: [
-            //         {
-            //             model: sekolah,
-            //             as: "usersSekolah",
-            //             where: {
-            //                 npsn: body.email
-            //             }
+            let findUserSekolah = await userAccount.findOne({
+                include: [
+                    {
+                        model: sekolah,
+                        as: "usersSekolah",
+                        where: {
+                            npsn: body.email
+                        }
 
-            //         },
-            //     ],
-            // });
+                    },
+                ],
+            });
 
             let findUserPengawas = await userAccount.findOne({
                 include: [
@@ -87,9 +87,9 @@ module.exports = {
             } else if (findUserPengawas) {
                 user = findUserPengawas.dataValues.usersPengawas
             }
-            // else if (findUserSekolah) {
-            //     user = findUserSekolah.dataValues.usersSekolah
-            // }
+            else if (findUserSekolah) {
+                user = findUserSekolah.dataValues.usersSekolah
+            }
             console.log('====================================');
             console.log(user);
             console.log('====================================');
