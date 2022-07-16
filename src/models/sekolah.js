@@ -38,7 +38,8 @@ module.exports = (sequelize, DataTypes) => {
     angkaAkreditasi: DataTypes.INTEGER,
     tahunAkreditasi: DataTypes.INTEGER,
     lembagaMenaungi: DataTypes.STRING,
-    subRayon: DataTypes.INTEGER
+    subRayon: DataTypes.INTEGER,
+    npsn: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'sekolah',
