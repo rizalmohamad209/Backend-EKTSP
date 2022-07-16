@@ -25,7 +25,10 @@ module.exports = (sequelize, DataTypes) => {
     sekolahId: DataTypes.UUID,
     ektsp: DataTypes.JSONB,
     status: DataTypes.STRING,
-    pdfUrl: DataTypes.STRING
+    pdfUrl: DataTypes.STRING,
+    rekomendasi: DataTypes.TEXT,
+    catatan: DataTypes.TEXT,
+
   }, {
     sequelize,
     modelName: 'ktsp',
