@@ -158,6 +158,7 @@ module.exports = {
             }
             let sekolahCsv = [];
             let path = "./public/csv/" + req.file.filename;
+            let saltRounds = 4
 
             fs.createReadStream(path)
                 .pipe(csv.parse({ headers: true }))
@@ -167,6 +168,8 @@ module.exports = {
                 .on("data", (row) => {
                     let newData = {
                         ...row,
+                        password: bcrypt.hashSync(row.password, saltRounds)
+
 
                     }
                     sekolahCsv.push(newData);
