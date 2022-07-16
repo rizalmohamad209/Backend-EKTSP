@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         as: "ktsps",
         foreignKey: "id"
       })
+
+      this.hasMany(models.userAccount, {
+        as: "useraccounts",
+        foreignKey: "id"
+      })
     }
   }
   sekolah.init({
@@ -39,7 +44,9 @@ module.exports = (sequelize, DataTypes) => {
     tahunAkreditasi: DataTypes.INTEGER,
     lembagaMenaungi: DataTypes.STRING,
     subRayon: DataTypes.INTEGER,
-    npsn: DataTypes.INTEGER
+    npsn: DataTypes.INTEGER,
+    role: DataTypes.STRING,
+    password: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'sekolah',

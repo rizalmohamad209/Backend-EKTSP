@@ -26,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId"
       })
 
+      this.belongsTo(models.sekolah, {
+        as: "usersSekolah",
+        foreignKey: "userId"
+      })
+
     }
   }
   userAccount.init({
