@@ -36,18 +36,18 @@ module.exports = {
             })
 
             console.log(findUserPengawas.dataValues)
-            let findUserSekolah = await userAccount.findOne({
-                include: [
-                    {
-                        model: sekolah,
-                        as: "usersSekolah",
-                        where: {
-                            npsn: body.email
-                        }
+            // let findUserSekolah = await userAccount.findOne({
+            //     include: [
+            //         {
+            //             model: sekolah,
+            //             as: "usersSekolah",
+            //             where: {
+            //                 npsn: body.email
+            //             }
 
-                    },
-                ],
-            });
+            //         },
+            //     ],
+            // });
 
 
             let findUserKepsek = await userAccount.findOne({
@@ -64,19 +64,17 @@ module.exports = {
 
             let user = {}
 
-            if (!findUserOperator & !findUserKepsek & !findUserPengawas & !findUserSekolah) {
+            if (!findUserOperator & !findUserKepsek & !findUserPengawas) {
                 res.status(404).send({
                     msg: "Sign In is error",
                     status: 404,
                     error: "User not found",
                 });
             }
+
+
             if (findUserOperator) {
                 user = findUserOperator.dataValues.usersOperator
-
-
-
-
             } else if (findUserKepsek) {
                 user = findUserKepsek.dataValues.usersKepsek
                 delete user.dataValues.nikKepsek
@@ -85,13 +83,12 @@ module.exports = {
                 delete user.dataValues.golKepsek
                 delete user.dataValues.noHpKepsek
                 delete user.dataValues.alamatKepsek
-
             } else if (findUserPengawas) {
                 user = findUserPengawas.dataValues.usersPengawas
             }
-            else if (findUserSekolah) {
-                user = findUserSekolah.dataValues.usersSekolah
-            }
+            //  else if (findUserSekolah) {
+            //     user = findUserSekolah.dataValues.usersSekolah
+            // }
             console.log('====================================');
             console.log(user);
             console.log('====================================');
