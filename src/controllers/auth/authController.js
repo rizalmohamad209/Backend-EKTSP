@@ -22,6 +22,18 @@ module.exports = {
                 ],
             });
 
+            let findUserPengawas = await userAccount.findOne({
+                include: [
+                    {
+                        model: pengawas,
+                        as: "usersPengawas",
+                        where: {
+                            nip: body.email
+                        }
+
+                    },
+                ]
+            })
             let findUserSekolah = await userAccount.findOne({
                 include: [
                     {
@@ -35,18 +47,6 @@ module.exports = {
                 ],
             });
 
-            let findUserPengawas = await userAccount.findOne({
-                include: [
-                    {
-                        model: pengawas,
-                        as: "usersPengawas",
-                        where: {
-                            nip: body.email
-                        }
-
-                    },
-                ]
-            })
 
             let findUserKepsek = await userAccount.findOne({
                 include: [
