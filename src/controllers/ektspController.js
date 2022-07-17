@@ -32,8 +32,6 @@ module.exports = {
                     model: sekolah,
                     as: "sekolahs",
                     attributes: ['namaSekolah']
-
-
                 },
             ],
             where: {
@@ -53,12 +51,49 @@ module.exports = {
             })
         })
     },
+    deleteKtsp: async (req, res) => {
+        const { id } = req.params;
+        let { body } = req;
+        try {
+            let findKtsp = await ktsp.findOne({ where: { id } })
+            if (findKtsp === null) {
+                res.status(404).send({
+                    msg: "Soft delete ktsp failed",
+                    status: 404,
+                    error: "Data not found",
+                });
+            }
+
+            let newData = {
+                ...body,
+            }
+            ktsp.update(newData, { where: { id } }).then((data) => {
+                const resObject = { ...findKtsp.dataValues, ...body };
+                res.status(200).send({
+                    msg: "Succes Soft Delete",
+                    status: 200,
+                    data: resObject,
+                });
+            }).catch((err) => {
+                res.status(500).send({
+                    msg: "Failed while update ktsp",
+                    status: 500,
+                    error: err,
+                });
+
+            })
+        } catch (err) {
+            res.status(500).send({
+                message: "Update ktsp failed",
+                error: err.message
+            });
+
+        }
+
+    },
     updateKtspByUser: async (req, res) => {
         const { id } = req.params;
         let { body } = req;
-
-
-
         try {
             let findKtsp = await ktsp.findOne({
                 where: { id }
@@ -71,10 +106,7 @@ module.exports = {
                     error: "Data not found",
                 });
             }
-
             if (req.image !== undefined) {
-
-
                 let newData = {
                     ...body,
                     pdfUrl: req.image.url
@@ -102,8 +134,6 @@ module.exports = {
                 let newData = {
                     ...body,
                 }
-
-
                 ktsp.update(newData, { where: { id }, individualHooks: true }).then((data) => {
                     const resObject = { ...findKtsp.dataValues, ...body };
                     res.status(200).send({
@@ -128,7 +158,6 @@ module.exports = {
                 error: err.message
             });
         }
-
     }
     ,
     getKtespById: (req, res) => {
@@ -149,16 +178,12 @@ module.exports = {
         })
     },
     getKtspBySekolah: (req, res) => {
-
-
         ktsp.findOne({
             include: [
                 {
                     model: sekolah,
                     as: "sekolahs",
                     attributes: ['namaSekolah']
-
-
                 },
             ],
             where: {
