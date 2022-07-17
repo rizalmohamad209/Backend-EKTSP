@@ -22,6 +22,8 @@ module.exports = {
                 ],
             });
 
+            console.log(findUserOperator);
+
             let findUserPengawas = await userAccount.findOne({
                 include: [
                     {
