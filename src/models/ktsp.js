@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     pdfUrl: DataTypes.STRING,
     rekomendasi: DataTypes.TEXT,
     catatan: DataTypes.TEXT,
+    statusData: DataTypes.TEXT
 
   }, {
     sequelize,
