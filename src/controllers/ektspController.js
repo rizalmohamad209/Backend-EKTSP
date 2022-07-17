@@ -152,6 +152,15 @@ module.exports = {
 
 
         ktsp.findOne({
+            include: [
+                {
+                    model: sekolah,
+                    as: "sekolahs",
+                    attributes: ['namaSekolah']
+
+
+                },
+            ],
             where: {
                 sekolahId: req.deCodeToken.id
             }
