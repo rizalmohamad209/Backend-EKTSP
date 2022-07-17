@@ -34,6 +34,8 @@ module.exports = {
                     },
                 ]
             })
+
+            console.log(findUserPengawas.dataValues)
             let findUserSekolah = await userAccount.findOne({
                 include: [
                     {
