@@ -150,10 +150,10 @@ module.exports = {
     },
     getKtspBySekolah: (req, res) => {
 
-        console.log(id);
+
         ktsp.findOne({
             where: {
-                sekolahId: '2cdde2d4-d10c-48c7-9201-cb7a314b60e2'
+                sekolahId: req.deCodeToken.id
             }
         }).then((data) => {
             res.status(200).send({
