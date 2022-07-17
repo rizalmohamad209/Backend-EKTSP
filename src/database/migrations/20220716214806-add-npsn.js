@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addColumn('sekolahs', 'npsn', {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT,
       allowNull: true,
     });
     /**

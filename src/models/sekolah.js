@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     tahunAkreditasi: DataTypes.INTEGER,
     lembagaMenaungi: DataTypes.STRING,
     subRayon: DataTypes.INTEGER,
-    npsn: DataTypes.INTEGER,
+    npsn: DataTypes.BIGINT,
     role: DataTypes.STRING,
     password: DataTypes.STRING
   }, {
