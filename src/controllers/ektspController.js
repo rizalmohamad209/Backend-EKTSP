@@ -147,5 +147,25 @@ module.exports = {
                 error: err.message
             })
         })
+    },
+    getKtspBySekolah: (req, res) => {
+        let { id } = req.params;
+        ktsp.findOne({
+            where: {
+                sekolahId: id
+            }
+        }).then((data) => {
+            res.status(200).send({
+                msg: "Success get ktsp by sekolah",
+                status: 200,
+                data: data
+            })
+        }).catch((err) => {
+            res.status(500).send({
+                msg: "Failed get ktsp by sekolah",
+                status: 500,
+                error: err.message
+            })
+        })
     }
 }
