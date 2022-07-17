@@ -9,20 +9,20 @@ module.exports = {
         const { body } = req;
 
         try {
-            let findUserOperator = await userAccount.findOne({
-                include: [
-                    {
-                        model: operator,
-                        as: "usersOperator",
-                        where: {
-                            emailOperator: body.email
-                        }
+            // let findUserOperator = await userAccount.findOne({
+            //     include: [
+            //         {
+            //             model: operator,
+            //             as: "usersOperator",
+            //             where: {
+            //                 emailOperator: body.email
+            //             }
 
-                    },
-                ],
-            });
+            //         },
+            //     ],
+            // });
 
-            console.log(findUserOperator);
+            // console.log(findUserOperator);
 
             let findUserPengawas = await userAccount.findOne({
                 include: [
@@ -38,35 +38,35 @@ module.exports = {
             })
 
             console.log(findUserPengawas.dataValues)
-            // let findUserSekolah = await userAccount.findOne({
-            //     include: [
-            //         {
-            //             model: sekolah,
-            //             as: "usersSekolah",
-            //             where: {
-            //                 npsn: body.email
-            //             }
-
-            //         },
-            //     ],
-            // });
-
-
-            let findUserKepsek = await userAccount.findOne({
+            let findUserSekolah = await userAccount.findOne({
                 include: [
                     {
-                        model: kepsek,
-                        as: "usersKepsek",
+                        model: sekolah,
+                        as: "usersSekolah",
                         where: {
-                            emailKepsek: body.email
+                            npsn: body.email
                         }
-                    }
-                ]
-            })
+
+                    },
+                ],
+            });
+
+
+            // let findUserKepsek = await userAccount.findOne({
+            //     include: [
+            //         {
+            //             model: kepsek,
+            //             as: "usersKepsek",
+            //             where: {
+            //                 emailKepsek: body.email
+            //             }
+            //         }
+            //     ]
+            // })
 
             let user = {}
 
-            if (!findUserOperator & !findUserKepsek & !findUserPengawas) {
+            if (!findUserPengawas && !findUserSekolah) {
                 res.status(404).send({
                     msg: "Sign In is error",
                     status: 404,
@@ -75,22 +75,12 @@ module.exports = {
             }
 
 
-            if (findUserOperator) {
-                user = findUserOperator.dataValues.usersOperator
-            } else if (findUserKepsek) {
-                user = findUserKepsek.dataValues.usersKepsek
-                delete user.dataValues.nikKepsek
-                delete user.dataValues.nipKepsek
-                delete user.dataValues.npwpKepsek
-                delete user.dataValues.golKepsek
-                delete user.dataValues.noHpKepsek
-                delete user.dataValues.alamatKepsek
-            } else if (findUserPengawas) {
+            if (findUserPengawas) {
                 user = findUserPengawas.dataValues.usersPengawas
             }
-            //  else if (findUserSekolah) {
-            //     user = findUserSekolah.dataValues.usersSekolah
-            // }
+            else if (findUserSekolah) {
+                user = findUserSekolah.dataValues.usersSekolah
+            }
             console.log('====================================');
             console.log(user);
             console.log('====================================');
