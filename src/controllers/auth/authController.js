@@ -22,39 +22,33 @@ module.exports = {
             //     ],
             // });
 
-            // console.log(findUserOperator);
-            if (body.email.toString().length < 5) {
-                let findUserSekolah = await userAccount.findOne({
-                    include: [
-                        {
-                            model: sekolah,
-                            as: "usersSekolah",
-                            where: {
-                                npsn: body.email
-                            }
 
-                        },
-                    ],
-                });
-            } else {
+            let findUserPengawas = await userAccount.findOne({
+                include: [
+                    {
+                        model: pengawas,
+                        as: "usersPengawas",
+                        where: {
+                            nip: body.email
+                        }
 
-                let findUserPengawas = await userAccount.findOne({
-                    include: [
-                        {
-                            model: pengawas,
-                            as: "usersPengawas",
-                            where: {
-                                nip: body.email
-                            }
-
-                        },
-                    ]
-                })
-            }
+                    },
+                ]
+            })
 
 
+            let findUserSekolah = await userAccount.findOne({
+                include: [
+                    {
+                        model: sekolah,
+                        as: "usersSekolah",
+                        where: {
+                            npsn: body.email
+                        }
 
-
+                    },
+                ],
+            });
 
 
             // let findUserKepsek = await userAccount.findOne({
