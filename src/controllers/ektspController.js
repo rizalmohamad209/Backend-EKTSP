@@ -149,7 +149,7 @@ module.exports = {
         })
     },
     getKtspBySekolah: (req, res) => {
-        let { id } = req.params;
+        let id = req.deCodeToken.id;
         ktsp.findOne({
             where: {
                 sekolahId: id
