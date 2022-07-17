@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn('ktsps', 'status', {
+    await queryInterface.addColumn('ktsps', 'statusData', {
       type: Sequelize.TEXT,
       defaultValue: "SHOW",
     });
