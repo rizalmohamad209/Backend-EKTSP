@@ -36,10 +36,10 @@ module.exports = (sequelize, DataTypes) => {
 
   ktsp.addHook('beforeUpdate', (instance, options) => {
     console.log(instance._changed.has('pdfUrl'));
-    if (instance._changed.has('ektsp') && !instance._changed.has('pdfUrl')) {
+    if (instance._changed.has('ektsp')) {
 
       instance.setDataValue("status", "Sudah Terisi")
-    } else if (instance._changed.has('ektsp') && instance._changed.has('pdfUrl')) {
+    } else if (instance._changed.has('pdfUrl')) {
       instance.setDataValue("status", "Terverifikasi")
     }
 
