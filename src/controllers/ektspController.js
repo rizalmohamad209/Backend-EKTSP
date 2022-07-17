@@ -35,7 +35,8 @@ module.exports = {
                 },
             ],
             where: {
-                pengawasId: req.deCodeToken.id
+                pengawasId: req.deCodeToken.id,
+                statusData: "SHOW"
             }
         }).then((data) => {
             res.status(200).send({
