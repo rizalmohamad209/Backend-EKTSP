@@ -111,7 +111,7 @@ module.exports = {
                         },
                     ],
                 });
-
+                console.log(findUserDinas);
 
 
 
