@@ -288,4 +288,48 @@ module.exports = {
             });
         }
     },
+    importDinasCsv: (req, res) => {
+        try {
+            if (req.file == undefined) {
+                return res.status(400).send("Please upload a CSV file!");
+            }
+            let dinasCsv = [];
+            let path = "./public/csv/" + req.file.filename;
+            let saltRounds = 4
+            fs.createReadStream(path)
+                .pipe(csv.parse({ headers: true }))
+                .on("error", (error) => {
+                    throw error.message;
+                })
+                .on("data", (row) => {
+                    console.log(row.password);
+                    let newData = {
+                        ...row,
+                        password: bcrypt.hashSync(row.password, saltRounds)
+                    }
+                    dinasCsv.push(newData);
+
+                })
+                .on("end", () => {
+                    pengawas.bulkCreate(dinasCsv)
+                        .then(() => {
+                            res.status(200).send({
+                                message:
+                                    "Success import to database: " + req.file.originalname,
+                            });
+                        })
+                        .catch((error) => {
+                            res.status(500).send({
+                                message: "Fail to import data into database!",
+                                error: error
+                            });
+                        });
+                });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({
+                message: "Could not upload the file: " + req.file.originalname,
+            });
+        }
+    },
 }
