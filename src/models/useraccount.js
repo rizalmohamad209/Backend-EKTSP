@@ -31,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId"
       })
 
+      this.belongsTo(models.dinas, {
+        as: "usersDinas",
+        foreignKey: "userId"
+      })
+
     }
   }
   userAccount.init({
