@@ -25,6 +25,33 @@ module.exports = {
             })
         })
     },
+    getAllEktsp: (req, res) => {
+        ktsp.findAll({
+            include: [
+                {
+                    model: sekolah,
+                    as: "sekolahs",
+                    attributes: ['namaSekolah']
+                },
+            ],
+            where: {
+
+                statusData: "SHOW"
+            }
+        }).then((data) => {
+            res.status(200).send({
+                msg: "Success get all ktsp",
+                status: 200,
+                data: data
+            })
+        }).catch((err) => {
+            res.status(500).send({
+                msg: "Failed get all ktsp",
+                status: 500,
+                error: err.message
+            })
+        })
+    },
     getKtspByUser: (req, res) => {
         ktsp.findAll({
             include: [

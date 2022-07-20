@@ -6,6 +6,7 @@ const cloudinary = require("../helpers/cloudinary")
 
 ektspRoute.post("/", authMiddleware.checkLogin, ektspController.createEKtsp)
 ektspRoute.get("/", authMiddleware.checkLogin, ektspController.getKtspByUser)
+ektspRoute.get("/all", authMiddleware.checkLogin, ektspController.getAllEktsp)
 ektspRoute.put("/delete/:id", authMiddleware.checkLogin, ektspController.deleteKtsp)
 ektspRoute.put("/:id", authMiddleware.checkLogin, uploadMiddleware.single("file"), cloudinary, ektspController.updateKtspByUser)
 ektspRoute.get("/sekolah", authMiddleware.checkLogin, ektspController.getKtspBySekolah)
