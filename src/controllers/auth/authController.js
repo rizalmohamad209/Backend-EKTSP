@@ -10,7 +10,7 @@ module.exports = {
         console.log(typeof body.email);
 
         try {
-            if (typeof body.email == "number") {
+            if (!body.email.includes("dinas")) {
 
 
 
