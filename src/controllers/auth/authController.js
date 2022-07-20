@@ -129,7 +129,7 @@ module.exports = {
 
                 const isValidPassword = bcrypt.compareSync(
                     body.password,
-                    findUserDinas.dataValues.password
+                    findUserDinas.dataValues.usersDinas.dataValues.password
                 );
 
                 if (!isValidPassword) {
@@ -142,8 +142,8 @@ module.exports = {
 
 
                 const payload = {
-                    id: findUserDinas.dataValues.id,
-                    role: findUserDinas.dataValues.role,
+                    id: findUserDinas.dataValues.usersDinas.dataValues.id,
+                    role: findUserDinas.dataValues.usersDinas.dataValues.role
 
                 };
 
@@ -157,7 +157,7 @@ module.exports = {
                 res.status(200).send({
                     msg: "Sign-in Succesfully",
                     status: 200,
-                    data: { ...findUserDinas.dataValues, token },
+                    data: { ...findUserDinas.dataValues.usersDinas.dataValues, token },
                 });
             }
 
