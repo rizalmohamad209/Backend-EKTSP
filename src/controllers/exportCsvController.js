@@ -1,4 +1,4 @@
-const { kepsek, operator, komite, sekolah, userAccount, pengawas } = require("../models")
+const { kepsek, operator, komite, sekolah, userAccount, pengawas,dinas } = require("../models")
 const fs = require("fs");
 const { uuid } = require('uuidv4');
 const csv = require("fast-csv");
