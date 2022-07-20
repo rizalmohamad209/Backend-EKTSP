@@ -7,9 +7,9 @@ module.exports = {
 
     signIn: async (req, res) => {
         const { body } = req;
+        console.log(typeof body, email);
 
         try {
-
             if (typeof body.email === "number") {
 
 
