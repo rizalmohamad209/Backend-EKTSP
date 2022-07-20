@@ -311,7 +311,7 @@ module.exports = {
 
                 })
                 .on("end", () => {
-                    pengawas.bulkCreate(dinasCsv)
+                    dinas.bulkCreate(dinasCsv)
                         .then(() => {
                             res.status(200).send({
                                 message:
